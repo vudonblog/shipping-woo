@@ -4,7 +4,9 @@ Shipping Delivered Woocommerce
 Hiển thị Delivered cho từng danh mục cụ thể
 Copy đoạn code vào funtions.php của childen themes
 chú ý muốn hiển thị thêm cho danh mục nào thì chỉ việc copy cụm 
+
 if (is_product() && has_term('apparel','product_cat')) 
+
 		{
 			$songayxulymin=5; 
 			$songayxulymax=7;
