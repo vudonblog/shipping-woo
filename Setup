@@ -1,0 +1,252 @@
+
+add_action( 'woocommerce_after_add_to_cart_button', 'vudondeliveryship');
+function vudondeliveryship() {	
+	if ( is_product() ) 
+	{ 	
+$dt = date("Y-m-d");
+//áp dụng cho tất cả ngoại trừ những danh mục bên dưới
+$songayxulymin=10;$songayxulymax=14;$songayshipmin=14; $songayshipmax=21;
+		//áp dụng cho danh mục apparel
+		if (is_product() && has_term('apparel','product_cat')) 
+		{
+			$songayxulymin=5; 
+			$songayxulymax=7;
+			$songayshipmin=7; 
+			$songayshipmax=10;
+		}
+		//áp dụng cho danh mục Favorites
+		if (is_product() && has_term('favorites','product_cat')) 
+		{
+			$songayxulymin=7;
+			$songayxulymax=10; 
+			$songayshipmin=10; 
+			$songayshipmax=14; 
+		}
+		//áp dụng cho danh mục ALL OVER PRINTED SHIR
+		if (is_product() && has_term('all-over-printed-shirts','product_cat')) 
+		{
+			$songayxulymin=10; 
+			$songayxulymax=14; 
+			$songayshipmin=14;
+			$songayshipmax=21; 
+		}
+
+$dtfisrt=	date('M d', strtotime(date("Y-m-d") ));
+$dateShip = date('M d', strtotime( "$dt + $songayxulymin day" )) . ' - ' . date('M d', strtotime( "$dt + $songayxulymax day" ));
+$dateDelivered = date('M d', strtotime( "$dt + $songayshipmin day" )) . ' - ' . date('M d', strtotime( "$dt + $songayshipmax day" ));
+echo '
+<style>.vudon-delivery{
+vertical-align: middle;
+    width: 100%;
+    border: 2px dashed #bfcacf;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+max-width: 700px;
+}
+
+.vudontooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  font-family: "Graphik Webfont",-apple-system,"Helvetica Neue","Droid Sans",Arial,sans-serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 18px;
+}
+.vudontooltip .vudontooltiptext {
+    visibility: hidden;
+    min-width: 350px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    font-size: 15px;
+    margin-left: 10px;
+}
+.vudontooltip:hover .vudontooltiptext {
+  visibility: visible;
+}
+.vudontooltiptext
+{
+position: absolute;
+    left: -109px;
+    top: 25px;
+    margin: 0px;
+}
+
+.vudon-line-height-tight.vudon-text-body-03 {
+    line-height: 32px;
+}
+.vudon-grid .vudon-grid__item-xs-4 {
+    flex-grow: 1;
+    flex-basis: 33.33333%;
+    max-width: 33.33333%;
+}
+.vudon-align-items-center {
+    align-items: center !important;
+}
+.vudon-align-items-flex-end {
+    align-items: flex-end !important;
+}
+.vudon-align-items-flex-start {
+    align-items: flex-start !important;
+}
+.vudon-flex-direction-column-xs {
+    flex-direction: column !important;
+}
+.vudon-display-flex-xs {
+    display: flex !important;
+}
+.vudon-pl-xs-1 {
+    padding-left: 6px !important;
+}
+.vudon-grid {
+    display: flex !important;
+padding: 0px 20px;;
+   }
+.vudon-flex-grow-xs-1 {
+    flex-grow: 1 !important;
+}
+.vudon-height-half {
+    height: 50% !important;
+	border-bottom: 1px solid rgba(34, 34, 34, 0.15) !important;
+}
+.vudon-width-full {
+    width: 100% !important;
+max-width: 700px;
+}
+.vudon-text-caption {
+    font-family: "Graphik Webfont",-apple-system,"Helvetica Neue","Droid Sans",Arial,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.vudon-popover .vudon-popover__trigger.vudon-popover__trigger--underline, .vudon-popover .vudon-popover__trigger.vudon-popover__trigger--underline--light, .vudon-tooltip .vudon-tooltip__trigger.vudon-tooltip__trigger--underline, .vudon-tooltip .vudon-tooltip__trigger.vudon-tooltip__trigger--underline--light {
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-underline-position: under;
+    text-decoration-color: inherit;
+}
+
+.vudon-circle {
+    border-radius: 50% !important;
+    overflow: hidden !important;
+}
+.etsy-icon, .vudon-icon {
+    display: inline-block;
+    fill: currentColor;
+    height: 47px;
+    width: 47px;
+    vertical-align: middle;
+}
+.vudon-bg-gray {
+    background-color: #EAEAEA !important;
+}
+.vudon-pl-xs-1 {
+    padding-left: 6px !important;
+}
+.vudon-pr-xs-1 {
+    padding-right: 6px !important;
+}
+.vudon-text-caption-title{margin-bottom:0px;}
+</style>
+<div class="vudon-delivery"">
+ <div class="vudon-width-full">
+    
+
+	<div>
+        <span class="vudon-popover vudon-popover--right" data-vudon-popover="" data-popover="edd-policy">
+ <div class="vudontooltip">Estimated arrival
+  <span class="vudontooltiptext">The estimated delivery date is based on your purchase date, the recipient\'s location, the seller\'s processing time and location, and the shipping carrier. Other factors—like placing an order on a weekend or a holiday—may end up pushing the arrival of your item beyond the estimated delivery date. It\'s our hope that your item gets where it\'s going as soon as possible, but given the factors involved, this is only an estimate.</span>
+</div>
+        </span>
+    </div>
+	
+	
+<div class="vudon-grid">
+        <div class="vudon-grid__item-xs-4">
+    <div class="vudon-display-flex-xs vudon-flex-direction-column-xs vudon-align-items-flex-start" data-vudon-popover="" style="cursor:help">
+        <div class="vudon-display-flex-xs vudon-width-full">
+ <div>
+ <span class="etsy-icon vudon-circle vudon-bg-gray" style="padding:3px">
+<svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+<path d="M10.3126 10.2524L12.1726 6.80245L10.8451 5.48245L7.53761 2.17495C7.43156 2.07363 7.29053 2.01709 7.14386 2.01709C6.99719 2.01709 6.85616 2.07363 6.75011 2.17495C6.65938 2.27881 6.60938 2.41204 6.60938 2.54995C6.60938 2.68786 6.65938 2.82109 6.75011 2.92495L9.84761 6.49495L9.31511 7.02745L4.89011 2.70745C4.83647 2.6537 4.77276 2.61106 4.70262 2.58197C4.63248 2.55288 4.55729 2.53791 4.48136 2.53791C4.40543 2.53791 4.33024 2.55288 4.2601 2.58197C4.18996 2.61106 4.12625 2.6537 4.07261 2.70745V2.70745C3.97079 2.81475 3.91404 2.95703 3.91404 3.10495C3.91404 3.25287 3.97079 3.39515 4.07261 3.50245L8.21261 8.12995L7.68761 8.66245L3.82511 4.82995C3.77306 4.77213 3.70945 4.7259 3.63838 4.69425C3.56732 4.66261 3.4904 4.64625 3.41261 4.64625C3.33482 4.64625 3.2579 4.66261 3.18683 4.69425C3.11577 4.7259 3.05215 4.77213 3.00011 4.82995V4.82995C2.90938 4.93381 2.85938 5.06704 2.85938 5.20495C2.85938 5.34286 2.90938 5.47609 3.00011 5.57995L6.60011 9.74995L6.07511 10.2824L3.00011 7.67995C2.89556 7.59068 2.76259 7.54163 2.62511 7.54163C2.48763 7.54163 2.35466 7.59068 2.25011 7.67995V7.67995C2.19636 7.73359 2.15373 7.7973 2.12463 7.86744C2.09554 7.93758 2.08057 8.01277 2.08057 8.0887C2.08057 8.16463 2.09554 8.23982 2.12463 8.30996C2.15373 8.38009 2.19636 8.44381 2.25011 8.49745L5.02511 11.2649L9.27011 15.5099C9.40942 15.6494 9.57485 15.7601 9.75695 15.8355C9.93904 15.911 10.1342 15.9499 10.3314 15.9499C10.5285 15.9499 10.7237 15.911 10.9058 15.8355C11.0879 15.7601 11.2533 15.6494 11.3926 15.5099L15.1426 11.7974L15.5476 11.3924C15.7446 11.195 15.8827 10.9465 15.9463 10.6749C16.0099 10.4033 15.9965 10.1194 15.9076 9.85495L13.5001 3.88495L13.0501 4.03495C12.9466 4.07147 12.8557 4.13672 12.7879 4.22305C12.7202 4.30939 12.6785 4.41324 12.6676 4.52245L12.9676 7.59745L10.8451 10.7849L10.3126 10.2524Z" fill="#222222">
+</path>
+</svg>
+</span>
+ </div>
+     <div class="vudon-flex-grow-xs-1 vudon-pl-xs-1">
+ <div class="vudon-width-full vudon-height-half" style="border-width:2px !important">
+</div>
+     </div>
+        </div>
+        <p class="vudon-mt-xs-2 vudon-text-black vudon-text-caption-title vudon-line-height-tight">'.$dtfisrt.'</p>
+  <div class="vudontooltip">Order placed
+  <span class="vudontooltiptext">After you place an order, it will take us '.$songayxulymin.'-'.$songayxulymax.' business days to prepare the item for you.</span>
+</div>
+
+    </div>
+</div>
+        <div class="vudon-grid__item-xs-4">
+    <div class="vudon-display-flex-xs vudon-flex-direction-column-xs vudon-align-items-center" data-vudon-popover="" style="cursor:help">
+        <div class="vudon-display-flex-xs vudon-width-full">
+     <div class="vudon-flex-grow-xs-1 vudon-pr-xs-1">
+ <div class="vudon-width-full vudon-height-half" style="border-width:2px !important">
+</div>
+     </div>
+ <div>
+ <span class="etsy-icon vudon-circle vudon-bg-gray" style="padding:3px">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" aria-hidden="true" focusable="false">
+<path d="M21.868,11.5l-4-7A1,1,0,0,0,17,4H5A1,1,0,0,0,4,5V6H2A1,1,0,1,0,2,8H6a1,1,0,0,1,0,2H3a1,1,0,0,0,0,2H5a1,1,0,1,1,0,2H4v3a1,1,0,0,0,1,1H6.05a2.5,2.5,0,0,0,4.9,0h4.1a2.5,2.5,0,0,0,4.9,0H21a1,1,0,0,0,1-1V12A1,1,0,0,0,21.868,11.5ZM8.5,19A1.5,1.5,0,1,1,10,17.5,1.5,1.5,0,0,1,8.5,19Zm5.488-8V6h1.725l2.845,5h-4.57ZM17.5,19A1.5,1.5,0,1,1,19,17.5,1.5,1.5,0,0,1,17.5,19Z">
+</path>
+</svg>
+</span>
+ </div>
+     <div class="vudon-flex-grow-xs-1 vudon-pl-xs-1">
+ <div class="vudon-width-full vudon-height-half" style="border-width:2px !important">
+</div>
+     </div>
+        </div>
+        <p class="vudon-mt-xs-2 vudon-text-black vudon-text-caption-title vudon-line-height-tight">'.$dateShip.'</p>
+       
+          <div class="vudontooltip">Order ships
+  <span class="vudontooltiptext">Your item will be packed for shipping and we will email you a tracking code.</span>
+</div>
+    </div>
+</div>
+        <div class="vudon-grid__item-xs-4">
+    <div class="vudon-display-flex-xs vudon-flex-direction-column-xs vudon-align-items-flex-end" data-vudon-popover="" style="cursor:help">
+        <div class="vudon-display-flex-xs vudon-width-full">
+     <div class="vudon-flex-grow-xs-1 vudon-pr-xs-1">
+ <div class="vudon-width-full vudon-height-half" style="border-width:2px !important">
+</div>
+     </div>
+ <div>
+ <span class="etsy-icon vudon-circle vudon-bg-gray" style="padding:3px">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" aria-hidden="true" focusable="false">
+<path d="M21,9.25A1.25,1.25,0,0,0,19.75,8H12.41l4.29-4.29a1,1,0,0,0-1.41-1.41L12,5.59,10.71,4.29A1,1,0,0,0,9.29,5.71L11.59,8H4.25A1.25,1.25,0,0,0,3,9.25V15H4v5.75A1.25,1.25,0,0,0,5.25,22h13.5A1.25,1.25,0,0,0,20,20.75V15h1ZM19,10v3H13V10ZM5,10h6v3H5ZM6,20V15h5v5Zm12,0H13V15h5Z">
+</path>
+</svg>
+</span>
+ </div>
+        </div>
+        <p class="vudon-mt-xs-2 vudon-text-black vudon-text-caption-title vudon-line-height-tight">'.$dateDelivered.'</p>
+ <div class="vudontooltip">Delivered!
+  <span class="vudontooltiptext">Estimated to arrive at your doorstep '.$dateDelivered .'!</span>
+</div>
+
+    </div>
+</div>
+    </div>
+
+</div>
+</div>
+';
+}
+}
