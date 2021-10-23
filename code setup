@@ -5,7 +5,10 @@ function vudondeliveryship() {
 	{ 	
 $dt = date("Y-m-d");
 //áp dụng cho tất cả ngoại trừ những danh mục bên dưới
-$songayxulymin=10;$songayxulymax=14;$songayshipmin=14; $songayshipmax=21;
+$songayxulymin=10;
+$songayxulymax=14;
+$songayshipmin=14; 
+$songayshipmax=21;
 		
 		//áp dụng cho danh mục apparel hoặc danh mục father
 		if (has_term('apparel','product_cat')||has_term('father','product_cat')) 
