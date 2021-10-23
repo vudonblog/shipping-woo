@@ -14,8 +14,8 @@ if (has_term('apparel','product_cat'))
 			$songayshipmax=10;
 		}
 		
-//áp dụng ̀cho danh mục apparel hoặc danh mục father
-if (has_term('apparel','product_cat')||has_term('father','product_cat')) 
+//áp dụng cho nhiều danh mục apparel hoặc danh mục father có thể thêm ||has_term('father','product_cat') cho danh mục khác
+if ( has_term('apparel','product_cat')||has_term('father','product_cat') ) 
 		{
 			$songayxulymin=5; 
 			$songayxulymax=7;
