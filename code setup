@@ -36,14 +36,14 @@ $songayshipmax=21;
 		}
 
 $dtfisrt=	date('M d', strtotime(date("Y-m-d") ));
-$dateShip = date('M d', strtotime( "$dt + $songayxulymin day" )) . ' - ' . date('M d', strtotime( "$dt + $songayxulymax day" ));
-$dateDelivered = date('M d', strtotime( "$dt + $songayshipmin day" )) . ' - ' . date('M d', strtotime( "$dt + $songayshipmax day" ));
+$dateShip = date('M d', strtotime( "$dt + $songayxulymin weekday" )) . ' - ' . date('M d', strtotime( "$dt + $songayxulymax weekday" ));
+$dateDelivered = date('M d', strtotime( "$dt + $songayshipmin weekday" )) . ' - ' . date('M d', strtotime( "$dt + $songayshipmax weekday" ));
 echo '
 <style>.vudon-delivery{
 vertical-align: middle;
     width: 100%;
     border: 2px dashed #bfcacf;
-    padding: 10px;
+    padding: 0px 10px 10px;
     margin-bottom: 10px;
     border-radius: 8px;
     margin-top: 15px;
@@ -56,12 +56,12 @@ max-width: 700px;
   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
   font-family: "Graphik Webfont",-apple-system,"Helvetica Neue","Droid Sans",Arial,sans-serif;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 16px;
     line-height: 18px;
 }
-.vudontooltip .vudontooltiptext {
+.vudontooltip .vudontooltiptext{
     visibility: hidden;
-    min-width: 350px;
+  
     background-color: black;
     color: #fff;
     text-align: center;
@@ -72,16 +72,8 @@ max-width: 700px;
     font-size: 15px;
     margin-left: 10px;
 }
-.vudontooltip:hover .vudontooltiptext {
-  visibility: visible;
-}
-.vudontooltiptext
-{
-position: absolute;
-    left: -109px;
-    top: 25px;
-    margin: 0px;
-}
+.vudontooltip:hover .vudontooltiptext {visibility: visible;}
+.vudontooltiptext{position: absolute;left: -109px;top: 25px;margin: 0px;}
 
 .vudon-line-height-tight.vudon-text-body-03 {
     line-height: 32px;
@@ -111,7 +103,7 @@ position: absolute;
 }
 .vudon-grid {
     display: flex !important;
-padding: 0px 20px;;
+padding: 0px 5px;;
    }
 .vudon-flex-grow-xs-1 {
     flex-grow: 1 !important;
@@ -145,8 +137,8 @@ max-width: 700px;
 .etsy-icon, .vudon-icon {
     display: inline-block;
     fill: currentColor;
-    height: 47px;
-    width: 47px;
+    height: 40px;
+    width: 40px;
     vertical-align: middle;
 }
 .vudon-bg-gray {
@@ -158,7 +150,22 @@ max-width: 700px;
 .vudon-pr-xs-1 {
     padding-right: 6px !important;
 }
-.vudon-text-caption-title{margin-bottom:0px;}
+.vudon-text-caption-title{margin-bottom:0px;font-size:18px;}
+@media (max-width: 500px){
+.vudon-text-caption-title {
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.vudontooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    font-family: "Graphik Webfont",-apple-system,"Helvetica Neue","Droid Sans",Arial,sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+}
+}
 </style>
 <div class="vudon-delivery"">
  <div class="vudon-width-full">
@@ -166,7 +173,7 @@ max-width: 700px;
 
 	<div>
         <span class="vudon-popover vudon-popover--right" data-vudon-popover="" data-popover="edd-policy">
- <div class="vudontooltip">Estimated arrival
+ <div class="vudontooltip">Estimated arrival (Except public holidays)
   <span class="vudontooltiptext">The estimated delivery date is based on your purchase date, the recipient\'s location, the seller\'s processing time and location, and the shipping carrier. Other factors—like placing an order on a weekend or a holiday—may end up pushing the arrival of your item beyond the estimated delivery date. It\'s our hope that your item gets where it\'s going as soon as possible, but given the factors involved, this is only an estimate.</span>
 </div>
         </span>
